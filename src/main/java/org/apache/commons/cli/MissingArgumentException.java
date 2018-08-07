@@ -26,7 +26,7 @@ public class MissingArgumentException extends ParseException
     /**
      * This exception {@code serialVersionUID}.
      */
-    private static final long serialVersionUID = -7098538588704965017L;
+    private static  long serialVersionUID = -7098538588704965017L;
 
     /** The option requiring additional arguments */
     private Option option;
@@ -37,7 +37,7 @@ public class MissingArgumentException extends ParseException
      *
      * @param message the detail message
      */
-    public MissingArgumentException(final String message)
+    public MissingArgumentException( String message)
     {
         super(message);
     }
@@ -49,7 +49,7 @@ public class MissingArgumentException extends ParseException
      * @param option the option requiring an argument
      * @since 1.2
      */
-    public MissingArgumentException(final Option option)
+    public MissingArgumentException( Option option)
     {
         this("Missing argument for option: " + option.getKey());
         this.option = option;

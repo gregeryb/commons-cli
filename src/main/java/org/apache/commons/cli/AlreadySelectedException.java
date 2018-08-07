@@ -40,7 +40,7 @@ public class AlreadySelectedException extends ParseException
      *
      * @param message the detail message
      */
-    public AlreadySelectedException(final String message)
+    public AlreadySelectedException( String message)
     {
         super(message);
     }
@@ -53,7 +53,7 @@ public class AlreadySelectedException extends ParseException
      * @param option the option that triggered the exception
      * @since 1.2
      */
-    public AlreadySelectedException(final OptionGroup group, final Option option)
+    public AlreadySelectedException( OptionGroup group,  Option option)
     {
         this("The option '" + option.getKey() + "' was specified but an option from this group "
                 + "has already been selected: '" + group.getSelected() + "'");

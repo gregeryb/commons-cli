@@ -22,7 +22,7 @@ package org.apache.commons.cli;
  *
  * @since 1.1
  */
-final class OptionValidator
+ class OptionValidator
 {
     /**
      * Validates whether <code>opt</code> is a permissible Option
@@ -41,7 +41,7 @@ final class OptionValidator
      * @param opt The option string to validate, may be null
      * @throws IllegalArgumentException if the Option is not valid.
      */
-    static void validateOption(final String opt) throws IllegalArgumentException
+    static void validateOption( String opt) throws IllegalArgumentException
     {
         // if opt is NULL do not check further
         if (opt == null)
@@ -52,7 +52,7 @@ final class OptionValidator
         // handle the single character opt
         if (opt.length() == 1)
         {
-            final char ch = opt.charAt(0);
+             char ch = opt.charAt(0);
 
             if (!isValidOpt(ch))
             {
@@ -63,7 +63,7 @@ final class OptionValidator
         // handle the multi character opt
         else
         {
-            for (final char ch : opt.toCharArray())
+            for ( char ch : opt.toCharArray())
             {
                 if (!isValidChar(ch))
                 {
@@ -80,7 +80,7 @@ final class OptionValidator
      * @param c the option to validate
      * @return true if <code>c</code> is a letter, '?' or '@', otherwise false.
      */
-    private static boolean isValidOpt(final char c)
+    private static boolean isValidOpt( char c)
     {
         return isValidChar(c) || c == '?' || c == '@';
     }
@@ -91,7 +91,7 @@ final class OptionValidator
      * @param c the character to validate
      * @return true if <code>c</code> is a letter.
      */
-    private static boolean isValidChar(final char c)
+    private static boolean isValidChar( char c)
     {
         return Character.isJavaIdentifierPart(c);
     }

@@ -63,7 +63,7 @@ public class DefaultParser implements CommandLineParser
      * By "partial matching" we mean that given the following code:
      * <pre>
      *     {@code
-     *          final Options options = new Options();
+     *           Options options = new Options();
      *      options.addOption(new Option("d", "debug", false, "Turn on debug."));
      *      options.addOption(new Option("e", "extract", false, "Turn on extract."));
      *      options.addOption(new Option("o", "option", true, "Turn on option with argument."));
@@ -84,7 +84,7 @@ public class DefaultParser implements CommandLineParser
      * By "partial matching" we mean that given the following code:
      * <pre>
      *     {@code
-     *          final Options options = new Options();
+     *           Options options = new Options();
      *      options.addOption(new Option("d", "debug", false, "Turn on debug."));
      *      options.addOption(new Option("e", "extract", false, "Turn on extract."));
      *      options.addOption(new Option("o", "option", true, "Turn on option with argument."));
@@ -97,11 +97,11 @@ public class DefaultParser implements CommandLineParser
      *
      * @param allowPartialMatching if partial matching of long options shall be enabled
      */
-    public DefaultParser(final boolean allowPartialMatching) {
+    public DefaultParser( boolean allowPartialMatching) {
         this.allowPartialMatching = allowPartialMatching;
     }
 
-    public CommandLine parse(final Options options, final String[] arguments) throws ParseException
+    public CommandLine parse( Options options,  String[] arguments) throws ParseException
     {
         return parse(options, arguments, null);
     }
@@ -117,12 +117,12 @@ public class DefaultParser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException
+    public CommandLine parse( Options options,  String[] arguments,  Properties properties) throws ParseException
     {
         return parse(options, arguments, properties, false);
     }
 
-    public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException
+    public CommandLine parse( Options options,  String[] arguments,  boolean stopAtNonOption) throws ParseException
     {
         return parse(options, arguments, null, stopAtNonOption);
     }
@@ -142,7 +142,7 @@ public class DefaultParser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
+    public CommandLine parse( Options options,  String[] arguments,  Properties properties,  boolean stopAtNonOption)
             throws ParseException
     {
         this.options = options;
@@ -152,7 +152,7 @@ public class DefaultParser implements CommandLineParser
         expectedOpts = new ArrayList(options.getRequiredOptions());
 
         // clear the data from the groups
-        for (final OptionGroup group : options.getOptionGroups())
+        for ( OptionGroup group : options.getOptionGroups())
         {
             group.setSelected(null);
         }
@@ -161,7 +161,7 @@ public class DefaultParser implements CommandLineParser
 
         if (arguments != null)
         {
-            for (final String argument : arguments)
+            for ( String argument : arguments)
             {
                 handleToken(argument);
             }
@@ -183,31 +183,31 @@ public class DefaultParser implements CommandLineParser
      *
      * @param properties The value properties to be processed.
      */
-    private void handleProperties(final Properties properties) throws ParseException
+    private void handleProperties( Properties properties) throws ParseException
     {
         if (properties == null)
         {
             return;
         }
 
-        for (final Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();)
+        for ( Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();)
         {
-            final String option = e.nextElement().toString();
+             String option = e.nextElement().toString();
 
-            final Option opt = options.getOption(option);
+             Option opt = options.getOption(option);
             if (opt == null)
             {
                 throw new UnrecognizedOptionException("Default option wasn't defined", option);
             }
 
             // if the option is part of a group, check if another option of the group has been selected
-            final OptionGroup group = options.getOptionGroup(opt);
-            final boolean selected = group != null && group.getSelected() != null;
+             OptionGroup group = options.getOptionGroup(opt);
+             boolean selected = group != null && group.getSelected() != null;
 
             if (!cmd.hasOption(option) && !selected)
             {
                 // get the value from the properties
-                final String value = properties.getProperty(option);
+                 String value = properties.getProperty(option);
 
                 if (opt.hasArg())
                 {
@@ -264,7 +264,7 @@ public class DefaultParser implements CommandLineParser
      * @param token the command line token to handle
      * @throws ParseException
      */
-    private void handleToken(final String token) throws ParseException
+    private void handleToken( String token) throws ParseException
     {
         currentToken = token;
 
@@ -304,7 +304,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private boolean isArgument(final String token)
+    private boolean isArgument( String token)
     {
         return !isOption(token) || isNegativeNumber(token);
     }
@@ -314,14 +314,14 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private boolean isNegativeNumber(final String token)
+    private boolean isNegativeNumber( String token)
     {
         try
         {
             Double.parseDouble(token);
             return true;
         }
-        catch (final NumberFormatException e)
+        catch ( NumberFormatException e)
         {
             return false;
         }
@@ -332,7 +332,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private boolean isOption(final String token)
+    private boolean isOption( String token)
     {
         return isLongOption(token) || isShortOption(token);
     }
@@ -342,7 +342,7 @@ public class DefaultParser implements CommandLineParser
      * 
      * @param token
      */
-    private boolean isShortOption(final String token)
+    private boolean isShortOption( String token)
     {
         // short options (-S, -SV, -S=V, -SV1=V2, -S1S2)
         if (!token.startsWith("-") || token.length() == 1)
@@ -351,8 +351,8 @@ public class DefaultParser implements CommandLineParser
         }
 
         // remove leading "-" and "=value"
-        final int pos = token.indexOf("=");
-        final String optName = pos == -1 ? token.substring(1) : token.substring(1, pos);
+         int pos = token.indexOf("=");
+         String optName = pos == -1 ? token.substring(1) : token.substring(1, pos);
         if (options.hasShortOption(optName))
         {
             return true;
@@ -366,15 +366,15 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private boolean isLongOption(final String token)
+    private boolean isLongOption( String token)
     {
         if (!token.startsWith("-") || token.length() == 1)
         {
             return false;
         }
 
-        final int pos = token.indexOf("=");
-        final String t = pos == -1 ? token : token.substring(0, pos);
+         int pos = token.indexOf("=");
+         String t = pos == -1 ? token : token.substring(0, pos);
 
         if (!getMatchingLongOptions(t).isEmpty())
         {
@@ -399,7 +399,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
-    private void handleUnknownToken(final String token) throws ParseException
+    private void handleUnknownToken( String token) throws ParseException
     {
         if (token.startsWith("-") && token.length() > 1 && !stopAtNonOption)
         {
@@ -423,7 +423,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
-    private void handleLongOption(final String token) throws ParseException
+    private void handleLongOption( String token) throws ParseException
     {
         if (token.indexOf('=') == -1)
         {
@@ -445,9 +445,9 @@ public class DefaultParser implements CommandLineParser
      * 
      * @param token the command line token to handle
      */
-    private void handleLongOptionWithoutEqual(final String token) throws ParseException
+    private void handleLongOptionWithoutEqual( String token) throws ParseException
     {
-        final List<String> matchingOpts = getMatchingLongOptions(token);
+         List<String> matchingOpts = getMatchingLongOptions(token);
         if (matchingOpts.isEmpty())
         {
             handleUnknownToken(currentToken);
@@ -458,7 +458,7 @@ public class DefaultParser implements CommandLineParser
         }
         else
         {
-            final String key = options.hasLongOption(token) ? token : matchingOpts.get(0);
+             String key = options.hasLongOption(token) ? token : matchingOpts.get(0);
             handleOption(options.getOption(key));
         }
     }
@@ -473,15 +473,15 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
-    private void handleLongOptionWithEqual(final String token) throws ParseException
+    private void handleLongOptionWithEqual( String token) throws ParseException
     {
-        final int pos = token.indexOf('=');
+         int pos = token.indexOf('=');
 
-        final String value = token.substring(pos + 1);
+         String value = token.substring(pos + 1);
 
-        final String opt = token.substring(0, pos);
+         String opt = token.substring(0, pos);
 
-        final List<String> matchingOpts = getMatchingLongOptions(opt);
+         List<String> matchingOpts = getMatchingLongOptions(opt);
         if (matchingOpts.isEmpty())
         {
             handleUnknownToken(currentToken);
@@ -492,8 +492,8 @@ public class DefaultParser implements CommandLineParser
         }
         else
         {
-            final String key = options.hasLongOption(opt) ? opt : matchingOpts.get(0);
-            final Option option = options.getOption(key);
+             String key = options.hasLongOption(opt) ? opt : matchingOpts.get(0);
+             Option option = options.getOption(key);
 
             if (option.acceptsArg())
             {
@@ -527,11 +527,11 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
-    private void handleShortAndLongOption(final String token) throws ParseException
+    private void handleShortAndLongOption( String token) throws ParseException
     {
-        final String t = Util.stripLeadingHyphens(token);
+         String t = Util.stripLeadingHyphens(token);
 
-        final int pos = t.indexOf('=');
+         int pos = t.indexOf('=');
 
         if (t.length() == 1)
         {
@@ -560,7 +560,7 @@ public class DefaultParser implements CommandLineParser
             else
             {
                 // look for a long prefix (-Xmx512m)
-                final String opt = getLongPrefix(t);
+                 String opt = getLongPrefix(t);
 
                 if (opt != null && options.getOption(opt).acceptsArg())
                 {
@@ -585,13 +585,13 @@ public class DefaultParser implements CommandLineParser
         else
         {
             // equal sign found (-xxx=yyy)
-            final String opt = t.substring(0, pos);
-            final String value = t.substring(pos + 1);
+             String opt = t.substring(0, pos);
+             String value = t.substring(pos + 1);
 
             if (opt.length() == 1)
             {
                 // -S=V
-                final Option option = options.getOption(opt);
+                 Option option = options.getOption(opt);
                 if (option != null && option.acceptsArg())
                 {
                     handleOption(option);
@@ -624,15 +624,15 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private String getLongPrefix(final String token)
+    private String getLongPrefix( String token)
     {
-        final String t = Util.stripLeadingHyphens(token);
+         String t = Util.stripLeadingHyphens(token);
 
         int i;
         String opt = null;
         for (i = t.length() - 2; i > 1; i--)
         {
-            final String prefix = t.substring(0, i);
+             String prefix = t.substring(0, i);
             if (options.hasLongOption(prefix))
             {
                 opt = prefix;
@@ -646,10 +646,10 @@ public class DefaultParser implements CommandLineParser
     /**
      * Check if the specified token is a Java-like property (-Dkey=value).
      */
-    private boolean isJavaProperty(final String token)
+    private boolean isJavaProperty( String token)
     {
-        final String opt = token.substring(0, 1);
-        final Option option = options.getOption(opt);
+         String opt = token.substring(0, 1);
+         Option option = options.getOption(opt);
 
         return option != null && (option.getArgs() >= 2 || option.getArgs() == Option.UNLIMITED_VALUES);
     }
@@ -680,7 +680,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param option
      */
-    private void updateRequiredOptions(final Option option) throws AlreadySelectedException
+    private void updateRequiredOptions( Option option) throws AlreadySelectedException
     {
         if (option.isRequired())
         {
@@ -690,7 +690,7 @@ public class DefaultParser implements CommandLineParser
         // if the option is in an OptionGroup make that option the selected option of the group
         if (options.getOptionGroup(option) != null)
         {
-            final OptionGroup group = options.getOptionGroup(option);
+             OptionGroup group = options.getOptionGroup(option);
 
             if (group.isRequired())
             {
@@ -708,7 +708,7 @@ public class DefaultParser implements CommandLineParser
      * @param token the token (may contain leading dashes)
      * @return the list of matching option strings or an empty list if no matching option could be found
      */
-    private List<String> getMatchingLongOptions(final String token)
+    private List<String> getMatchingLongOptions( String token)
     {
         if (allowPartialMatching)
         {
@@ -754,11 +754,11 @@ public class DefaultParser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      *                        while parsing the command line token.
      */
-    protected void handleConcatenatedOptions(final String token) throws ParseException
+    protected void handleConcatenatedOptions( String token) throws ParseException
     {
         for (int i = 1; i < token.length(); i++)
         {
-            final String ch = String.valueOf(token.charAt(i));
+             String ch = String.valueOf(token.charAt(i));
 
             if (options.hasOption(ch))
             {

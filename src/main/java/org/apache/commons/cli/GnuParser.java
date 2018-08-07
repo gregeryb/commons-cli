@@ -47,15 +47,15 @@ public class GnuParser extends Parser
      * @return a String array of the flattened arguments
      */
     @Override
-    protected String[] flatten(final Options options, final String[] arguments, final boolean stopAtNonOption)
+    protected String[] flatten( Options options,  String[] arguments,  boolean stopAtNonOption)
     {
-        final List<String> tokens = new ArrayList<String>();
+         List<String> tokens = new ArrayList<String>();
 
         boolean eatTheRest = false;
 
         for (int i = 0; i < arguments.length; i++)
         {
-            final String arg = arguments[i];
+             String arg = arguments[i];
 
             if ("--".equals(arg))
             {
@@ -68,7 +68,7 @@ public class GnuParser extends Parser
             }
             else if (arg.startsWith("-"))
             {
-                final String opt = Util.stripLeadingHyphens(arg);
+                 String opt = Util.stripLeadingHyphens(arg);
 
                 if (options.hasOption(opt))
                 {

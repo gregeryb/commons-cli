@@ -20,7 +20,7 @@ package org.apache.commons.cli;
 /**
  * Contains useful helper methods for classes within this package.
  */
-final class Util
+ class Util
 {
     /**
      * Remove the hyphens from the beginning of <code>str</code> and
@@ -30,7 +30,7 @@ final class Util
      *
      * @return the new String.
      */
-    static String stripLeadingHyphens(final String str)
+    static String stripLeadingHyphens( String str)
     {
         if (str == null)
         {
@@ -59,7 +59,7 @@ final class Util
      */
     static String stripLeadingAndTrailingQuotes(String str)
     {
-        final int length = str.length();
+         int length = str.length();
         if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1)
         {
             str = str.substring(1, length - 1);

@@ -91,7 +91,7 @@ public class PatternOptionBuilder
      * @param ch the specified character
      * @return The class that <code>ch</code> represents
      */
-    public static Object getValueClass(final char ch)
+    public static Object getValueClass( char ch)
     {
         switch (ch)
         {
@@ -125,7 +125,7 @@ public class PatternOptionBuilder
      * @param ch the specified character
      * @return true if <code>ch</code> is a value code, otherwise false.
      */
-    public static boolean isValueCode(final char ch)
+    public static boolean isValueCode( char ch)
     {
         return ch == '@'
                 || ch == ':'
@@ -145,17 +145,17 @@ public class PatternOptionBuilder
      * @param pattern the pattern string
      * @return The {@link Options} instance
      */
-    public static Options parsePattern(final String pattern)
+    public static Options parsePattern( String pattern)
     {
         char opt = ' ';
         boolean required = false;
         Class<?> type = null;
 
-        final Options options = new Options();
+         Options options = new Options();
 
         for (int i = 0; i < pattern.length(); i++)
         {
-            final char ch = pattern.charAt(i);
+             char ch = pattern.charAt(i);
 
             // a value code comes after an option and specifies
             // details about it
@@ -163,7 +163,7 @@ public class PatternOptionBuilder
             {
                 if (opt != ' ')
                 {
-                    final Option option = Option.builder(String.valueOf(opt))
+                     Option option = Option.builder(String.valueOf(opt))
                         .hasArg(type != null)
                         .required(required)
                         .type(type)
@@ -190,13 +190,13 @@ public class PatternOptionBuilder
 
         if (opt != ' ')
         {
-            final Option option = Option.builder(String.valueOf(opt))
+             Option option = Option.builder(String.valueOf(opt))
                 .hasArg(type != null)
                 .required(required)
                 .type(type)
                 .build();
             
-            // we have a final one to deal with
+            // we have a  one to deal with
             options.addOption(option);
         }
 

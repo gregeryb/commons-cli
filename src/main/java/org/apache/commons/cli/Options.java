@@ -41,21 +41,21 @@ import java.util.Map;
 public class Options implements Serializable
 {
     /** The serial version UID. */
-    private static final long serialVersionUID = 1L;
+    private static  long serialVersionUID = 1L;
 
     /** a map of the options with the character key */
-    private final Map<String, Option> shortOpts = new LinkedHashMap<String, Option>();
+    private  Map<String, Option> shortOpts = new LinkedHashMap<String, Option>();
 
     /** a map of the options with the long key */
-    private final Map<String, Option> longOpts = new LinkedHashMap<String, Option>();
+    private  Map<String, Option> longOpts = new LinkedHashMap<String, Option>();
 
     /** a map of the required options */
     // N.B. This can contain either a String (addOption) or an OptionGroup (addOptionGroup)
     // TODO this seems wrong
-    private final List<Object> requiredOpts = new ArrayList<Object>();
+    private  List<Object> requiredOpts = new ArrayList<Object>();
 
     /** a map of the option groups */
-    private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<String, OptionGroup>();
+    private  Map<String, OptionGroup> optionGroups = new LinkedHashMap<String, OptionGroup>();
 
     /**
      * Add the specified option group.
@@ -63,14 +63,14 @@ public class Options implements Serializable
      * @param group the OptionGroup that is to be added
      * @return the resulting Options instance
      */
-    public Options addOptionGroup(final OptionGroup group)
+    public Options addOptionGroup( OptionGroup group)
     {
         if (group.isRequired())
         {
             requiredOpts.add(group);
         }
 
-        for (final Option option : group.getOptions())
+        for ( Option option : group.getOptions())
         {
             // an Option cannot be required if it is in an
             // OptionGroup, either the group is required or
@@ -106,7 +106,7 @@ public class Options implements Serializable
      * @return the resulting Options instance
      * @since 1.3
      */
-    public Options addOption(final String opt, final String description)
+    public Options addOption( String opt,  String description)
     {
         addOption(opt, null, false, description);
         return this;
@@ -124,7 +124,7 @@ public class Options implements Serializable
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
-    public Options addOption(final String opt, final boolean hasArg, final String description)
+    public Options addOption( String opt,  boolean hasArg,  String description)
     {
         addOption(opt, null, hasArg, description);
         return this;
@@ -143,7 +143,7 @@ public class Options implements Serializable
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
-    public Options addOption(final String opt, final String longOpt, final boolean hasArg, final String description)
+    public Options addOption( String opt,  String longOpt,  boolean hasArg,  String description)
     {
         addOption(new Option(opt, longOpt, hasArg, description));
         return this;
@@ -171,9 +171,9 @@ public class Options implements Serializable
      * @return the resulting Options instance
      * @since 1.4
      */
-    public Options addRequiredOption(final String opt, final String longOpt, final boolean hasArg, final String description)
+    public Options addRequiredOption( String opt,  String longOpt,  boolean hasArg,  String description)
     {
-        final Option option = new Option(opt, longOpt, hasArg, description);
+         Option option = new Option(opt, longOpt, hasArg, description);
         option.setRequired(true);
         addOption(option);
         return this;
@@ -185,9 +185,9 @@ public class Options implements Serializable
      * @param opt the option that is to be added
      * @return the resulting Options instance
      */
-    public Options addOption(final Option opt)
+    public Options addOption( Option opt)
     {
-        final String key = opt.getKey();
+         String key = opt.getKey();
 
         // add it to the long option list
         if (opt.hasLongOpt())
@@ -273,7 +273,7 @@ public class Options implements Serializable
     {
         opt = Util.stripLeadingHyphens(opt);
         
-        final List<String> matchingOpts = new ArrayList<String>();
+         List<String> matchingOpts = new ArrayList<String>();
 
         // for a perfect match return the single option only
         if (longOpts.keySet().contains(opt))
@@ -281,7 +281,7 @@ public class Options implements Serializable
             return Collections.singletonList(opt);
         }
 
-        for (final String longOpt : longOpts.keySet())
+        for ( String longOpt : longOpts.keySet())
         {
             if (longOpt.startsWith(opt))
             {
@@ -339,7 +339,7 @@ public class Options implements Serializable
      * @param opt the option whose OptionGroup is being queried.
      * @return the OptionGroup if <code>opt</code> is part of an OptionGroup, otherwise return null
      */
-    public OptionGroup getOptionGroup(final Option opt)
+    public OptionGroup getOptionGroup( Option opt)
     {
         return optionGroups.get(opt.getKey());
     }
@@ -352,7 +352,7 @@ public class Options implements Serializable
     @Override
     public String toString()
     {
-        final StringBuilder buf = new StringBuilder();
+         StringBuilder buf = new StringBuilder();
 
         buf.append("[ Options: [ short ");
         buf.append(shortOpts.toString());

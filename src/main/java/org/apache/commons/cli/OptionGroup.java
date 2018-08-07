@@ -29,10 +29,10 @@ import java.util.Map;
 public class OptionGroup implements Serializable
 {
     /** The serial version UID. */
-    private static final long serialVersionUID = 1L;
+    private static  long serialVersionUID = 1L;
     
     /** hold the options */
-    private final Map<String, Option> optionMap = new LinkedHashMap<String, Option>();
+    private  Map<String, Option> optionMap = new LinkedHashMap<String, Option>();
 
     /** the name of the selected option */
     private String selected;
@@ -46,7 +46,7 @@ public class OptionGroup implements Serializable
      * @param option the option to add to this group
      * @return this option group with the option added
      */
-    public OptionGroup addOption(final Option option)
+    public OptionGroup addOption( Option option)
     {
         // key   - option name
         // value - the option
@@ -81,7 +81,7 @@ public class OptionGroup implements Serializable
      * @throws AlreadySelectedException if an option from this group has 
      * already been selected.
      */
-    public void setSelected(final Option option) throws AlreadySelectedException
+    public void setSelected( Option option) throws AlreadySelectedException
     {
         if (option == null)
         {
@@ -114,7 +114,7 @@ public class OptionGroup implements Serializable
     /**
      * @param required specifies if this group is required
      */
-    public void setRequired(final boolean required)
+    public void setRequired( boolean required)
     {
         this.required = required;
     }
@@ -137,15 +137,15 @@ public class OptionGroup implements Serializable
     @Override
     public String toString()
     {
-        final StringBuilder buff = new StringBuilder();
+         StringBuilder buff = new StringBuilder();
         
-        final Iterator<Option> iter = getOptions().iterator();
+         Iterator<Option> iter = getOptions().iterator();
 
         buff.append("[");
 
         while (iter.hasNext())
         {
-            final Option option = iter.next();
+             Option option = iter.next();
 
             if (option.getOpt() != null)
             {

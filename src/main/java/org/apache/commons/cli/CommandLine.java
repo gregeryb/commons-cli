@@ -61,7 +61,7 @@ public class CommandLine implements Serializable
      * @return true if set, false if not.
      * @since 1.5
      */
-    public boolean hasOption(final Option opt)
+    public boolean hasOption( Option opt)
     {
         return options.contains(opt);
     }
@@ -72,7 +72,7 @@ public class CommandLine implements Serializable
      * @param opt Short name of the option.
      * @return true if set, false if not.
      */
-    public boolean hasOption(final String opt)
+    public boolean hasOption( String opt)
     {
         return hasOption(resolveOption(opt));
     }
@@ -83,7 +83,7 @@ public class CommandLine implements Serializable
      * @param opt character name of the option.
      * @return true if set, false if not.
      */
-    public boolean hasOption(final char opt)
+    public boolean hasOption( char opt)
     {
         return hasOption(String.valueOf(opt));
     }
@@ -96,13 +96,13 @@ public class CommandLine implements Serializable
      * @deprecated due to System.err message. Instead use getParsedOptionValue(String)
      */
     @Deprecated
-    public Object getOptionObject(final String opt)
+    public Object getOptionObject( String opt)
     {
         try
         {
             return getParsedOptionValue(opt);
         }
-        catch (final ParseException pe)
+        catch ( ParseException pe)
         {
             System.err.println("Exception found converting " + opt + " to desired type: " + pe.getMessage());
             return null;
@@ -118,13 +118,13 @@ public class CommandLine implements Serializable
      * @see PatternOptionBuilder
      * @since 1.5
      */
-    public Object getParsedOptionValue(final Option option) throws ParseException
+    public Object getParsedOptionValue( Option option) throws ParseException
     {
         if (option == null)
         {
             return null;
         }
-        final String res = getOptionValue(option);
+         String res = getOptionValue(option);
         if (res == null)
         {
             return null;
@@ -141,7 +141,7 @@ public class CommandLine implements Serializable
      * @see PatternOptionBuilder
      * @since 1.2
      */
-    public Object getParsedOptionValue(final String opt) throws ParseException
+    public Object getParsedOptionValue( String opt) throws ParseException
     {
         return getParsedOptionValue(resolveOption(opt));
     }
@@ -155,7 +155,7 @@ public class CommandLine implements Serializable
      * @see PatternOptionBuilder
      * @since 1.5
      */
-    public Object getParsedOptionValue(final char opt) throws ParseException
+    public Object getParsedOptionValue( char opt) throws ParseException
     {
         return getParsedOptionValue(String.valueOf(opt));
     }
@@ -167,7 +167,7 @@ public class CommandLine implements Serializable
      * @param opt the name of the option.
      * @return the type of opt.
      */
-    public Object getOptionObject(final char opt)
+    public Object getOptionObject( char opt)
     {
         return getOptionObject(String.valueOf(opt));
     }
@@ -180,13 +180,13 @@ public class CommandLine implements Serializable
      * otherwise null.
      * @since 1.5
      */
-    public String getOptionValue(final Option option)
+    public String getOptionValue( Option option)
     {
         if (option == null)
         {
             return null;
         }
-        final String[] values = getOptionValues(option);
+         String[] values = getOptionValues(option);
         return (values == null) ? null : values[0];
     }
 
@@ -197,7 +197,7 @@ public class CommandLine implements Serializable
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String getOptionValue(final String opt)
+    public String getOptionValue( String opt)
     {
         return getOptionValue(resolveOption(opt));
     }
@@ -209,7 +209,7 @@ public class CommandLine implements Serializable
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String getOptionValue(final char opt)
+    public String getOptionValue( char opt)
     {
         return getOptionValue(String.valueOf(opt));
     }
@@ -222,11 +222,11 @@ public class CommandLine implements Serializable
      * otherwise null.
      * @since 1.5
      */
-    public String[] getOptionValues(final Option option)
+    public String[] getOptionValues( Option option)
     {
-        final List<String> values = new ArrayList<String>();
+         List<String> values = new ArrayList<String>();
 
-        for (final Option processedOption : options)
+        for ( Option processedOption : options)
         {
             if (processedOption.equals(option))
             {
@@ -244,7 +244,7 @@ public class CommandLine implements Serializable
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String[] getOptionValues(final String opt)
+    public String[] getOptionValues( String opt)
     {
         return getOptionValues(resolveOption(opt));
     }
@@ -258,7 +258,7 @@ public class CommandLine implements Serializable
     private Option resolveOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
-        for (final Option option : options)
+        for ( Option option : options)
         {
             if (opt.equals(option.getOpt()))
             {
@@ -281,7 +281,7 @@ public class CommandLine implements Serializable
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String[] getOptionValues(final char opt)
+    public String[] getOptionValues( char opt)
     {
         return getOptionValues(String.valueOf(opt));
     }
@@ -296,9 +296,9 @@ public class CommandLine implements Serializable
      * otherwise <code>defaultValue</code>.
      * @since 1.5
      */
-    public String getOptionValue(final Option option, final String defaultValue)
+    public String getOptionValue( Option option,  String defaultValue)
     {
-        final String answer = getOptionValue(option);
+         String answer = getOptionValue(option);
         return (answer != null) ? answer : defaultValue;
     }
 
@@ -311,7 +311,7 @@ public class CommandLine implements Serializable
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
      */
-    public String getOptionValue(final String opt, final String defaultValue)
+    public String getOptionValue( String opt,  String defaultValue)
     {
         return getOptionValue(resolveOption(opt), defaultValue);
     }
@@ -325,7 +325,7 @@ public class CommandLine implements Serializable
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
      */
-    public String getOptionValue(final char opt, final String defaultValue)
+    public String getOptionValue( char opt,  String defaultValue)
     {
         return getOptionValue(String.valueOf(opt), defaultValue);
     }
@@ -343,15 +343,15 @@ public class CommandLine implements Serializable
      *         even if the option doesn't exists.
      * @since 1.5
      */
-    public Properties getOptionProperties(final Option option)
+    public Properties getOptionProperties( Option option)
     {
-        final Properties props = new Properties();
+         Properties props = new Properties();
 
-        for (final Option processedOption : options)
+        for ( Option processedOption : options)
         {
             if (processedOption.equals(option))
             {
-                final List<String> values = processedOption.getValuesList();
+                 List<String> values = processedOption.getValuesList();
                 if (values.size() >= 2)
                 {
                     // use the first 2 arguments as the key/value pair
@@ -381,15 +381,15 @@ public class CommandLine implements Serializable
      *         even if the option doesn't exists.
      * @since 1.2
      */
-    public Properties getOptionProperties(final String opt)
+    public Properties getOptionProperties( String opt)
     {
-        final Properties props = new Properties();
+         Properties props = new Properties();
 
-        for (final Option option : options)
+        for ( Option option : options)
         {
             if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt()))
             {
-                final List<String> values = option.getValuesList();
+                 List<String> values = option.getValuesList();
                 if (values.size() >= 2)
                 {
                     // use the first 2 arguments as the key/value pair
@@ -413,7 +413,7 @@ public class CommandLine implements Serializable
      */
     public String[] getArgs()
     {
-        final String[] answer = new String[args.size()];
+         String[] answer = new String[args.size()];
 
         args.toArray(answer);
 
@@ -457,7 +457,7 @@ public class CommandLine implements Serializable
      *
      * @param arg the unrecognized option/argument.
      */
-    protected void addArg(final String arg)
+    protected void addArg( String arg)
     {
         args.add(arg);
     }
@@ -467,7 +467,7 @@ public class CommandLine implements Serializable
      *
      * @param opt the processed option.
      */
-    protected void addOption(final Option opt)
+    protected void addOption( Option opt)
     {
         options.add(opt);
     }
@@ -490,10 +490,10 @@ public class CommandLine implements Serializable
      */
     public Option[] getOptions()
     {
-        final Collection<Option> processed = options;
+         Collection<Option> processed = options;
 
         // reinitialise array
-        final Option[] optionsArray = new Option[processed.size()];
+         Option[] optionsArray = new Option[processed.size()];
 
         // return the array
         return processed.toArray(optionsArray);
@@ -505,12 +505,12 @@ public class CommandLine implements Serializable
      *
      * @since 1.4
      */
-    public static final class Builder
+    public static  class Builder
     {
         /**
          * CommandLine that is being build by this Builder.
          */
-        private final CommandLine commandLine = new CommandLine();
+        private  CommandLine commandLine = new CommandLine();
 
         /**
          * Add an option to the command line. The values of the option are stored.
@@ -519,7 +519,7 @@ public class CommandLine implements Serializable
          *
          * @return this Builder instance for method chaining.
          */
-        public Builder addOption(final Option opt)
+        public Builder addOption( Option opt)
         {
             commandLine.addOption(opt);
             return this;
@@ -532,7 +532,7 @@ public class CommandLine implements Serializable
          *
          * @return this Builder instance for method chaining.
          */
-        public Builder addArg(final String arg)
+        public Builder addArg( String arg)
         {
             commandLine.addArg(arg);
             return this;

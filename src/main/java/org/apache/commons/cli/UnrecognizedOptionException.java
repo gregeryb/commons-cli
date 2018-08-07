@@ -26,7 +26,7 @@ public class UnrecognizedOptionException extends ParseException
     /**
      * This exception {@code serialVersionUID}.
      */
-    private static final long serialVersionUID = -252504690284625623L;
+    private static  long serialVersionUID = -252504690284625623L;
 
     /** The  unrecognized option */
     private String option;
@@ -37,7 +37,7 @@ public class UnrecognizedOptionException extends ParseException
      *
      * @param message the detail message
      */
-    public UnrecognizedOptionException(final String message)
+    public UnrecognizedOptionException( String message)
     {
         super(message);
     }
@@ -50,7 +50,7 @@ public class UnrecognizedOptionException extends ParseException
      * @param option  the unrecognized option
      * @since 1.2
      */
-    public UnrecognizedOptionException(final String message, final String option)
+    public UnrecognizedOptionException( String message,  String option)
     {
         this(message);
         this.option = option;

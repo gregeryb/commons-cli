@@ -26,7 +26,7 @@ import java.util.Iterator;
 public class MissingOptionException extends ParseException
 {
     /** This exception {@code serialVersionUID}. */
-    private static final long serialVersionUID = 8161889051578563249L;
+    private static  long serialVersionUID = 8161889051578563249L;
 
     /** The list of missing options and groups */
     private List missingOptions;
@@ -37,7 +37,7 @@ public class MissingOptionException extends ParseException
      *
      * @param message the detail message
      */
-    public MissingOptionException(final String message)
+    public MissingOptionException( String message)
     {
         super(message);
     }
@@ -49,7 +49,7 @@ public class MissingOptionException extends ParseException
      * @param missingOptions the list of missing options and groups
      * @since 1.2
      */
-    public MissingOptionException(final List missingOptions)
+    public MissingOptionException( List missingOptions)
     {
         this(createMessage(missingOptions));
         this.missingOptions = missingOptions;
@@ -73,13 +73,13 @@ public class MissingOptionException extends ParseException
      * @param missingOptions the list of missing options and groups
      * @since 1.2
      */
-    private static String createMessage(final List<?> missingOptions)
+    private static String createMessage( List<?> missingOptions)
     {
-        final StringBuilder buf = new StringBuilder("Missing required option");
+         StringBuilder buf = new StringBuilder("Missing required option");
         buf.append(missingOptions.size() == 1 ? "" : "s");
         buf.append(": ");
 
-        final Iterator<?> it = missingOptions.iterator();
+         Iterator<?> it = missingOptions.iterator();
         while (it.hasNext())
         {
             buf.append(it.next());
