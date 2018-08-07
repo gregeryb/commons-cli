@@ -88,28 +88,7 @@ public class CommandLine implements Serializable
         return hasOption(String.valueOf(opt));
     }
 
-    /**
-     * Return the <code>Object</code> type of this <code>Option</code>.
-     *
-     * @param opt the name of the option.
-     * @return the type of this <code>Option</code>.
-     * @deprecated due to System.err message. Instead use getParsedOptionValue(String)
-     */
-    @Deprecated
-    public Object getOptionObject( String opt)
-    {
-        try
-        {
-            return getParsedOptionValue(opt);
-        }
-        catch ( ParseException pe)
-        {
-            System.err.println("Exception found converting " + opt + " to desired type: " + pe.getMessage());
-            return null;
-        }
-    }
-
-    /**
+     /**
      * Return a version of this <code>Option</code> converted to a particular type.
      *
      * @param option the name of the option.
@@ -158,18 +137,6 @@ public class CommandLine implements Serializable
     public Object getParsedOptionValue( char opt) throws ParseException
     {
         return getParsedOptionValue(String.valueOf(opt));
-    }
-
-    /**
-     * Return the <code>Object</code> type of this <code>Option</code>.
-     *
-     * @deprecated due to System.err message. Instead use getParsedOptionValue(char)
-     * @param opt the name of the option.
-     * @return the type of opt.
-     */
-    public Object getOptionObject( char opt)
-    {
-        return getOptionObject(String.valueOf(opt));
     }
 
     /**

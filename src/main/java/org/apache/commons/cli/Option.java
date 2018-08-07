@@ -205,21 +205,6 @@ public class Option implements Cloneable, Serializable
 
     /**
      * Sets the type of this Option.
-     * <p>
-     * <b>Note:</b> this method is kept for binary compatibility and the
-     * input type is supposed to be a {@link Class} object. 
-     *
-     * @param type the type of this Option
-     * @deprecated since 1.3, use {@link #setType(Class)} instead
-     */
-    @Deprecated
-    public void setType( Object type)
-    {
-        setType((Class<?>) type);
-    }
-
-    /**
-     * Sets the type of this Option.
      *
      * @param type the type of this Option
      * @since 1.3
@@ -698,22 +683,6 @@ public class Option implements Cloneable, Serializable
     void clearValues()
     {
         values.clear();
-    }
-
-    /**
-     * This method is not intended to be used. It was a piece of internal 
-     * API that was made public in 1.0. It currently throws an UnsupportedOperationException.
-     *
-     * @param value the value to add
-     * @return always throws an {@link UnsupportedOperationException}
-     * @throws UnsupportedOperationException always
-     * @deprecated
-     */
-    @Deprecated
-    public boolean addValue( String value)
-    {
-        throw new UnsupportedOperationException("The addValue method is not intended for client use. "
-                + "Subclasses should use the addValueForProcessing method instead. ");
     }
 
     /**

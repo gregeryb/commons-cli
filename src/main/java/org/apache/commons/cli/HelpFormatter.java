@@ -104,76 +104,53 @@ public class HelpFormatter
 
     /**
      * number of characters per line
-     *
-     * @deprecated Scope will be made private for next major version
-     * - use get/setWidth methods instead.
      */
-    @Deprecated
-    public int defaultWidth = DEFAULT_WIDTH;
+
+    private int defaultWidth = DEFAULT_WIDTH;
 
     /**
      * amount of padding to the left of each line
-     *
-     * @deprecated Scope will be made private for next major version
-     * - use get/setLeftPadding methods instead.
      */
-    @Deprecated
-    public int defaultLeftPad = DEFAULT_LEFT_PAD;
+
+    private int defaultLeftPad = DEFAULT_LEFT_PAD;
 
     /**
      * the number of characters of padding to be prefixed
      * to each description line
-     *
-     * @deprecated Scope will be made private for next major version
-     * - use get/setDescPadding methods instead.
      */
-    @Deprecated
-    public int defaultDescPad = DEFAULT_DESC_PAD;
+
+    private int defaultDescPad = DEFAULT_DESC_PAD;
 
     /**
      * the string to display at the beginning of the usage statement
-     *
-     * @deprecated Scope will be made private for next major version
-     * - use get/setSyntaxPrefix methods instead.
      */
-    @Deprecated
-    public String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
+
+    private String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
 
     /**
      * the new line string
      *
-     * @deprecated Scope will be made private for next major version
-     * - use get/setNewLine methods instead.
      */
-    @Deprecated
-    public String defaultNewLine = System.getProperty("line.separator");
+
+    private String defaultNewLine = System.getProperty("line.separator");
 
     /**
      * the shortOpt prefix
-     *
-     * @deprecated Scope will be made private for next major version
-     * - use get/setOptPrefix methods instead.
      */
-    @Deprecated
-    public String defaultOptPrefix = DEFAULT_OPT_PREFIX;
+
+    private String defaultOptPrefix = DEFAULT_OPT_PREFIX;
 
     /**
      * the long Opt prefix
-     *
-     * @deprecated Scope will be made private for next major version
-     * - use get/setLongOptPrefix methods instead.
      */
-    @Deprecated
-    public String defaultLongOptPrefix = DEFAULT_LONG_OPT_PREFIX;
+
+    private String defaultLongOptPrefix = DEFAULT_LONG_OPT_PREFIX;
 
     /**
      * the name of the argument
-     *
-     * @deprecated Scope will be made private for next major version
-     * - use get/setArgName methods instead.
      */
-    @Deprecated
-    public String defaultArgName = DEFAULT_ARG_NAME;
+
+    private String defaultArgName = DEFAULT_ARG_NAME;
 
     /**
      * Comparator used to sort the options when they output in help text
