@@ -26,12 +26,11 @@ import org.junit.Test;
  */
 public class PosixParserTest extends ParserTestCase
 {
-    @SuppressWarnings("deprecation")
     @Before
     public void setUp()
     {
         super.setUp();
-        parser = new PosixParser();
+        parser = new DefaultParser();
     }
 
     @Override @Test @Ignore("not supported by the PosixParser")

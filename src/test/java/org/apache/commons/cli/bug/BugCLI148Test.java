@@ -21,9 +21,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.PosixParser;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,14 +39,14 @@ public class BugCLI148Test
     public void setUp() throws Exception
     {
         options = new Options();
-        options.addOption(OptionBuilder.hasArg().create('t'));
-        options.addOption(OptionBuilder.hasArg().create('s'));
+        options.addOption(Option.builder("t").hasArg().build());
+        options.addOption(Option.builder("s").hasArg().build());
     }
 
     @Test
     public void testWorkaround1() throws Exception
     {
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final String[] args = new String[]{ "-t-something" };
 
         final CommandLine commandLine = parser.parse(options, args);
@@ -56,7 +56,7 @@ public class BugCLI148Test
     @Test
     public void testWorkaround2() throws Exception
     {
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final String[] args = new String[]{ "-t", "\"-something\"" };
 
         final CommandLine commandLine = parser.parse(options, args);

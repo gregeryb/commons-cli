@@ -22,10 +22,10 @@ import static org.junit.Assert.fail;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.PosixParser;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,7 +47,7 @@ public class BugCLI71Test
         algorithm.setArgName("value");
         options.addOption(key);
 
-        parser = new PosixParser();
+        parser = new DefaultParser();
     }
 
     @Test

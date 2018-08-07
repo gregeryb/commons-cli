@@ -25,7 +25,6 @@ import java.util.Properties;
 
 import org.junit.Test;
 
-@SuppressWarnings("deprecation") // tests some deprecated classes
 public class CommandLineTest
 {
     @Test
@@ -34,10 +33,10 @@ public class CommandLineTest
         final String[] args = new String[] { "-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withValueSeparator().hasOptionalArgs(2).create('D'));
-        options.addOption(OptionBuilder.withValueSeparator().hasArgs(2).withLongOpt("property").create());
+        options.addOption(Option.builder("D").valueSeparator().optionalArg(true).numberOfArgs(2).build());
+        options.addOption(Option.builder().valueSeparator().numberOfArgs(2).longOpt("property").build());
 
-        final Parser parser = new GnuParser();
+        final DefaultParser parser = new DefaultParser();
         final CommandLine cl = parser.parse(options, args);
 
         final Properties props = cl.getOptionProperties("D");
@@ -57,12 +56,12 @@ public class CommandLineTest
         final String[] args = new String[] { "-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar" };
 
         final Options options = new Options();
-        final Option option_D = OptionBuilder.withValueSeparator().hasOptionalArgs(2).create('D');
-        final Option option_property = OptionBuilder.withValueSeparator().hasArgs(2).withLongOpt("property").create();
+        final Option option_D = Option.builder("D").valueSeparator().optionalArg(true).numberOfArgs(2).build();
+        final Option option_property = Option.builder().valueSeparator().numberOfArgs(2).longOpt("property").build();
         options.addOption(option_D);
         options.addOption(option_property);
 
-        final Parser parser = new GnuParser();
+        final DefaultParser parser = new DefaultParser();
         final CommandLine cl = parser.parse(options, args);
 
         final Properties props = cl.getOptionProperties(option_D);
@@ -93,8 +92,8 @@ public class CommandLineTest
     @Test
     public void testGetParsedOptionValue() throws Exception {
         final Options options = new Options();
-        options.addOption(OptionBuilder.hasArg().withType(Number.class).create("i"));
-        options.addOption(OptionBuilder.hasArg().create("f"));
+        options.addOption(Option.builder("i").hasArg().type(Number.class).build());
+        options.addOption(Option.builder("f").hasArg().build());
         
         final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(options, new String[] { "-i", "123", "-f", "foo" });

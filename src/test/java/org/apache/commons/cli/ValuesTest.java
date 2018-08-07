@@ -19,13 +19,11 @@ package org.apache.commons.cli;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-@SuppressWarnings("deprecation") // tests some deprecated classes
 public class ValuesTest
 {
     private CommandLine cmd;
@@ -40,14 +38,14 @@ public class ValuesTest
         options.addOption("c", "c", false, "toggle -c");
         options.addOption("d", "d", true, "set -d");
 
-        options.addOption(OptionBuilder.withLongOpt("e").hasArgs().withDescription("set -e ").create('e'));
+        options.addOption(Option.builder("e").longOpt("e").hasArgs().desc("set -e ").build());
         options.addOption("f", "f", false, "jk");
-        options.addOption(OptionBuilder.withLongOpt("g").hasArgs(2).withDescription("set -g").create('g'));
-        options.addOption(OptionBuilder.withLongOpt("h").hasArg().withDescription("set -h").create('h'));
-        options.addOption(OptionBuilder.withLongOpt("i").withDescription("set -i").create('i'));
-        options.addOption(OptionBuilder.withLongOpt("j").hasArgs().withDescription("set -j").withValueSeparator('=').create('j'));
-        options.addOption(OptionBuilder.withLongOpt("k").hasArgs().withDescription("set -k").withValueSeparator('=').create('k'));
-        options.addOption(OptionBuilder.withLongOpt("m").hasArgs().withDescription("set -m").withValueSeparator().create('m'));
+        options.addOption(Option.builder("g").longOpt("g").numberOfArgs(2).desc("set -g").build());
+        options.addOption(Option.builder("h").longOpt("h").hasArg().desc("set -h").build());
+        options.addOption(Option.builder("i").longOpt("i").desc("set -i").build());
+        options.addOption(Option.builder("j").longOpt("j").hasArgs().desc("set -j").valueSeparator('=').build());
+        options.addOption(Option.builder("k").longOpt("k").hasArgs().desc("set -k").valueSeparator('=').build());
+        options.addOption(Option.builder("m").longOpt("m").hasArgs().desc("set -m").valueSeparator().build());
 
         final String[] args = new String[] { "-a",
                                        "-b", "foo",
@@ -65,7 +63,7 @@ public class ValuesTest
                                        "-kkey2=value2",
                                        "-mkey=value"};
 
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
 
         cmd = parser.parse(options,args);
     }
@@ -76,8 +74,8 @@ public class ValuesTest
         assertTrue("Option a is not set", cmd.hasOption("a"));
         assertTrue("Option c is not set", cmd.hasOption("c"));
 
-        assertNull(cmd.getOptionValues("a"));
-        assertNull(cmd.getOptionValues("c"));
+        assertEquals(0,cmd.getOptionValues("a").length);
+        assertEquals(0,cmd.getOptionValues("c").length);
     }
 
     @Test

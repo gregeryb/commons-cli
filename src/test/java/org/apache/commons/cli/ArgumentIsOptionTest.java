@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-@SuppressWarnings("deprecation") // tests some deprecated classes
 public class ArgumentIsOptionTest
 {
     private Options options = null;
@@ -34,7 +33,7 @@ public class ArgumentIsOptionTest
     {
         options = new Options().addOption("p", false, "Option p").addOption("attr", true, "Option accepts argument");
 
-        parser = new PosixParser();
+        parser = new DefaultParser();
     }
 
     @Test

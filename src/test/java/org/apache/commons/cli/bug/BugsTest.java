@@ -29,16 +29,13 @@ import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.Parser;
-import org.apache.commons.cli.PosixParser;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
@@ -48,10 +45,10 @@ public class BugsTest
     public void test11457() throws Exception
     {
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("verbose").create());
+        options.addOption(Option.builder().longOpt("verbose").build());
         final String[] args = new String[]{"--verbose"};
 
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
 
         final CommandLine cmd = parser.parse(options, args);
         assertTrue(cmd.hasOption("verbose"));
@@ -61,11 +58,11 @@ public class BugsTest
     public void test11458() throws Exception
     {
         final Options options = new Options();
-        options.addOption( OptionBuilder.withValueSeparator( '=' ).hasArgs().create( 'D' ) );
-        options.addOption( OptionBuilder.withValueSeparator( ':' ).hasArgs().create( 'p' ) );
+        options.addOption( Option.builder("D").valueSeparator( '=' ).hasArgs().build( ) );
+        options.addOption( Option.builder("p").valueSeparator( ':' ).hasArgs().build(  ) );
         final String[] args = new String[] { "-DJAVA_HOME=/opt/java" , "-pfile1:file2:file3" };
 
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
 
         final CommandLine cmd = parser.parse(options, args);
 
@@ -109,7 +106,7 @@ public class BugsTest
         options.addOption("m", true, "missing");
         final String[] args = new String[]{"-f", "foo"};
 
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
 
         final CommandLine cmd = parser.parse(options, args);
 
@@ -122,22 +119,22 @@ public class BugsTest
     {
         // Posix 
         Options options = new Options();
-        options.addOption( OptionBuilder.hasOptionalArg().create( 'a' ) );
-        options.addOption( OptionBuilder.hasArg().create( 'b' ) );
+        options.addOption( Option.builder("a").hasArg().optionalArg(true).build(  ) );
+        options.addOption( Option.builder("b").hasArg().build(  ) );
         String[] args = new String[] { "-a", "-bvalue" };
 
-        CommandLineParser parser = new PosixParser();
+        CommandLineParser parser = new DefaultParser();
 
         CommandLine cmd = parser.parse( options, args );
         assertEquals( cmd.getOptionValue( 'b' ), "value" );
 
         // GNU
         options = new Options();
-        options.addOption( OptionBuilder.hasOptionalArg().create( 'a' ) );
-        options.addOption( OptionBuilder.hasArg().create( 'b' ) );
+        options.addOption( Option.builder("a").hasArg().optionalArg(true).build( ) );
+        options.addOption( Option.builder("b").hasArg().build( ) );
         args = new String[] { "-a", "-b", "value" };
 
-        parser = new GnuParser();
+        parser = new DefaultParser();
 
         cmd = parser.parse( options, args );
         assertEquals( cmd.getOptionValue( 'b' ), "value" );
@@ -146,7 +143,7 @@ public class BugsTest
     @Test
     public void test12210() throws Exception
     {
-        // create the main options object which will handle the first parameter
+        // build the main options object which will handle the first parameter
         final Options mainOptions = new Options();
         // There can be 2 main exclusive options:  -exec|-rep
 
@@ -171,8 +168,8 @@ public class BugsTest
         repOptions.addOption("repopto", false, "desc");
         repOptions.addOption("repoptt", false, "desc");
 
-        // create the parser
-        final GnuParser parser = new GnuParser();
+        // build the parser
+        final DefaultParser parser = new DefaultParser();
 
         // finally, parse the arguments:
 
@@ -204,14 +201,14 @@ public class BugsTest
     public void test13425() throws Exception
     {
         final Options options = new Options();
-        final Option oldpass = OptionBuilder.withLongOpt( "old-password" )
-            .withDescription( "Use this option to specify the old password" )
+        final Option oldpass = Option.builder("o").longOpt( "old-password" )
+            .desc( "Use this option to specify the old password" )
             .hasArg()
-            .create( 'o' );
-        final Option newpass = OptionBuilder.withLongOpt( "new-password" )
-            .withDescription( "Use this option to specify the new password" )
+            .build(  );
+        final Option newpass = Option.builder("n").longOpt( "new-password" )
+            .desc( "Use this option to specify the new password" )
             .hasArg()
-            .create( 'n' );
+            .build(  );
 
         final String[] args = { 
             "-o", 
@@ -222,7 +219,7 @@ public class BugsTest
         options.addOption( oldpass );
         options.addOption( newpass );
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
 
         try {
             parser.parse( options, args );
@@ -235,7 +232,7 @@ public class BugsTest
     public void test13666() throws Exception
     {
         final Options options = new Options();
-        final Option dir = OptionBuilder.withDescription( "dir" ).hasArg().create( 'd' );
+        final Option dir = Option.builder("d").desc( "dir" ).hasArg().build();
         options.addOption( dir );
         
         final PrintStream oldSystemOut = System.out;
@@ -281,7 +278,7 @@ public class BugsTest
         opts.addOptionGroup( directions );
         opts.addOption( straight );
 
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
 
         String[] args = new String[] {  };
         try {
@@ -312,12 +309,12 @@ public class BugsTest
     @Test
     public void test14786() throws Exception
     {
-        final Option o = OptionBuilder.isRequired().withDescription("test").create("test");
+        final Option o = Option.builder("test").required().desc("test").build();
         final Options opts = new Options();
         opts.addOption(o);
         opts.addOption(o);
 
-        final CommandLineParser parser = new GnuParser();
+        final CommandLineParser parser = new DefaultParser();
 
         final String[] args = new String[] { "-test" };
 
@@ -328,7 +325,7 @@ public class BugsTest
     @Test
     public void test15046() throws Exception
     {
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final String[] CLI_ARGS = new String[] {"-z", "c"};
 
         final Options options = new Options();
@@ -346,9 +343,9 @@ public class BugsTest
     @Test
     public void test15648() throws Exception
     {
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final String[] args = new String[] { "-m", "\"Two Words\"" };
-        final Option m = OptionBuilder.hasArgs().create("m");
+        final Option m = Option.builder("m").hasArgs().build();
         final Options options = new Options();
         options.addOption( m );
         final CommandLine line = parser.parse( options, args );
@@ -364,7 +361,7 @@ public class BugsTest
         final Options options = new Options();
         options.addOption(multiArgOption);
         
-        final Parser parser = new PosixParser();
+        final DefaultParser parser = new DefaultParser();
         final String[] args = new String[]{};
         final Properties props = new Properties();
         props.setProperty("o","ovalue");

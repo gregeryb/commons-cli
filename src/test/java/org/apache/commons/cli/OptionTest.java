@@ -36,7 +36,6 @@ public class OptionTest
             super(opt, hasArg, description);
         }
 
-        @Override
         public boolean addValue(final String value)
         {
             addValueForProcessing(value);

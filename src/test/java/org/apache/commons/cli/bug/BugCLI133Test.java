@@ -20,10 +20,11 @@ package org.apache.commons.cli.bug;
 import static org.junit.Assert.assertFalse;
 
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
+
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
@@ -34,7 +35,7 @@ public class BugCLI133Test
         final Option optionA = new Option("a", "first");
         final Options opts = new Options();
         opts.addOption(optionA);
-        final PosixParser posixParser = new PosixParser();
+        final DefaultParser posixParser = new DefaultParser();
         final CommandLine line = posixParser.parse(opts, null);
         assertFalse(line.hasOption((String)null));
     }

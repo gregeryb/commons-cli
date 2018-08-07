@@ -21,14 +21,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@SuppressWarnings("deprecation") // tests some deprecated classes
 public class BasicParserTest extends ParserTestCase
 {
     @Before
     public void setUp()
     {
         super.setUp();
-        parser = new BasicParser();
+        parser = new DefaultParser();
     }
 
     @Override @Test @Ignore("not supported by the BasicParser")

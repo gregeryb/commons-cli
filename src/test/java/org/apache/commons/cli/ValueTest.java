@@ -25,7 +25,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-@SuppressWarnings("deprecation") // tests some deprecated classes
 public class ValueTest
 {
     private CommandLine _cl = null;
@@ -39,12 +38,12 @@ public class ValueTest
         opts.addOption("c", "c", false, "toggle -c");
         opts.addOption("d", "d", true, "set -d");
 
-        opts.addOption(OptionBuilder.hasOptionalArg().create('e'));
-        opts.addOption(OptionBuilder.hasOptionalArg().withLongOpt("fish").create());
-        opts.addOption(OptionBuilder.hasOptionalArgs().withLongOpt("gravy").create());
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
-        opts.addOption(OptionBuilder.hasOptionalArgs().create('j'));
+        opts.addOption(Option.builder("e").hasArg().optionalArg(true).build());
+        opts.addOption(Option.builder().hasArg().optionalArg(true).longOpt("fish").build());
+        opts.addOption(Option.builder().optionalArg(true).hasArgs().longOpt("gravy").build());
+        opts.addOption(Option.builder().optionalArg(true).numberOfArgs(2).longOpt("hide").build());
+        opts.addOption(Option.builder("i").optionalArg(true).numberOfArgs(2).build( ));
+        opts.addOption(Option.builder("j").optionalArg(true).hasArgs().build( ));
 
         final String[] args = new String[] { "-a",
             "-b", "foo",
@@ -52,7 +51,7 @@ public class ValueTest
             "--d", "bar" 
         };
 
-        final Parser parser = new PosixParser();
+        final DefaultParser parser = new DefaultParser();
         _cl = parser.parse(opts,args);
     }
 
@@ -121,7 +120,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "-e" };
 
-        final Parser parser = new PosixParser();
+        final DefaultParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("e") );
         assertNull( cmd.getOptionValue("e") );
@@ -132,7 +131,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "-e" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("e")) );
         assertNull( cmd.getOptionValue(opts.getOption("e")) );
@@ -143,7 +142,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "-e", "everything" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("e") );
         assertEquals( "everything", cmd.getOptionValue("e") );
@@ -154,7 +153,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "-e", "everything" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("e")) );
         assertEquals( "everything", cmd.getOptionValue(opts.getOption("e")) );
@@ -165,7 +164,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "--fish" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("fish") );
         assertNull( cmd.getOptionValue("fish") );
@@ -176,7 +175,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "--fish" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("fish")) );
         assertNull( cmd.getOptionValue(opts.getOption("fish")) );
@@ -187,7 +186,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "--fish", "face" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("fish") );
         assertEquals( "face", cmd.getOptionValue("fish") );
@@ -198,7 +197,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "--fish", "face" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("fish")) );
         assertEquals( "face", cmd.getOptionValue(opts.getOption("fish")) );
@@ -209,7 +208,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "-j", "ink", "idea" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("j") );
         assertEquals( "ink", cmd.getOptionValue("j") );
@@ -223,7 +222,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "-j", "ink", "idea" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("j")) );
         assertEquals( "ink", cmd.getOptionValue(opts.getOption("j")) );
@@ -237,7 +236,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "--gravy", "gold", "garden" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("gravy") );
         assertEquals( "gold", cmd.getOptionValue("gravy") );
@@ -251,7 +250,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "--gravy", "gold", "garden" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("gravy")) );
         assertEquals( "gold", cmd.getOptionValue(opts.getOption("gravy")) );
@@ -265,7 +264,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "-i", "ink", "idea", "isotope", "ice" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("i") );
         assertEquals( "ink", cmd.getOptionValue("i") );
@@ -281,7 +280,7 @@ public class ValueTest
     {
         final String[] args = new String[] { "-i", "ink", "idea", "isotope", "ice" };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("i") );
         assertEquals( "ink", cmd.getOptionValue(opts.getOption("i")) );
@@ -299,7 +298,7 @@ public class ValueTest
             "--hide", "house", "hair", "head"
         };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
 
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("hide") );
@@ -317,7 +316,7 @@ public class ValueTest
             "--hide", "house", "hair", "head"
         };
 
-        final Parser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
 
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("hide")) );

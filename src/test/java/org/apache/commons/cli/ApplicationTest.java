@@ -38,22 +38,21 @@ import org.junit.Test;
  * </ul>
  * </p>
  */
-@SuppressWarnings("deprecation") // tests some deprecated classes
 public class ApplicationTest
 {
     @Test
     public void testLs() throws Exception {
         // create the command line parser
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
         final Options options = new Options();
         options.addOption( "a", "all", false, "do not hide entries starting with ." );
         options.addOption( "A", "almost-all", false, "do not list implied . and .." );
         options.addOption( "b", "escape", false, "print octal escapes for nongraphic characters" );
-        options.addOption( OptionBuilder.withLongOpt( "block-size" )
-                                        .withDescription( "use SIZE-byte blocks" )
+        options.addOption( Option.builder().longOpt( "block-size" )
+                                        .desc("use SIZE-byte blocks" )
                                         .hasArg()
-                                        .withArgName("SIZE")
-                                        .create() );
+                                        .argName("SIZE")
+                                        .build() );
         options.addOption( "B", "ignore-backups", false, "do not list implied entried ending with ~");
         options.addOption( "c", false, "with -lt: sort by, and show, ctime (time of last modification of file status information) with -l:show ctime and sort by name otherwise: sort by ctime" );
         options.addOption( "C", false, "list entries by columns" );
@@ -71,7 +70,7 @@ public class ApplicationTest
     @Test
     public void testAnt() throws Exception {
         // use the GNU parser
-        final CommandLineParser parser = new GnuParser( );
+        final CommandLineParser parser = new DefaultParser( );
         final Options options = new Options();
         options.addOption( "help", false, "print this message" );
         options.addOption( "projecthelp", false, "print project help information" );
@@ -83,10 +82,10 @@ public class ApplicationTest
         options.addOption( "logger", true, "the class which is to perform the logging" );
         options.addOption( "listener", true, "add an instance of a class as a project listener" );
         options.addOption( "buildfile", true, "use given buildfile" );
-        options.addOption( OptionBuilder.withDescription( "use value for given property" )
+        options.addOption( Option.builder("D").desc( "use value for given property" )
                                         .hasArgs()
-                                        .withValueSeparator()
-                                        .create( 'D' ) );
+                                        .valueSeparator()
+                                        .build(  ) );
                            //, null, true, , false, true );
         options.addOption( "find", true, "search for buildfile towards the root of the filesystem and use it" );
 
@@ -115,63 +114,63 @@ public class ApplicationTest
         final Options options = new Options();
 
         options.addOption(
-            OptionBuilder.withLongOpt("define").
-                withDescription("define a system property").
+            Option.builder("D").longOpt("define").
+                desc("define a system property").
                 hasArg(true).
-                withArgName("name=value").
-                create('D'));
+                argName("name=value").
+                build());
         options.addOption(
-            OptionBuilder.hasArg(false)
-            .withDescription("usage information")
-            .withLongOpt("help")
-            .create('h'));
+            Option.builder("h").hasArg(false)
+            .desc("usage information")
+            .longOpt("help")
+            .build());
         options.addOption(
-            OptionBuilder.hasArg(false)
-            .withDescription("debug mode will print out full stack traces")
-            .withLongOpt("debug")
-            .create('d'));
+            Option.builder("d").hasArg(false)
+            .desc("debug mode will print out full stack traces")
+            .longOpt("debug")
+            .build());
         options.addOption(
-            OptionBuilder.hasArg(false)
-            .withDescription("display the Groovy and JVM versions")
-            .withLongOpt("version")
-            .create('v'));
+            Option.builder("v").hasArg(false)
+            .desc("display the Groovy and JVM versions")
+            .longOpt("version")
+            .build());
         options.addOption(
-            OptionBuilder.withArgName("charset")
+            Option.builder("c").argName("charset")
             .hasArg()
-            .withDescription("specify the encoding of the files")
-            .withLongOpt("encoding")
-            .create('c'));
+            .desc("specify the encoding of the files")
+            .longOpt("encoding")
+            .build());
         options.addOption(
-            OptionBuilder.withArgName("script")
+            Option.builder("e").argName("script")
             .hasArg()
-            .withDescription("specify a command line script")
-            .create('e'));
+            .desc("specify a command line script")
+            .build());
         options.addOption(
-            OptionBuilder.withArgName("extension")
-            .hasOptionalArg()
-            .withDescription("modify files in place; create backup if extension is given (e.g. \'.bak\')")
-            .create('i'));
+            Option.builder("i").argName("extension")
+            .optionalArg(true)
+            .desc("modify files in place; create backup if extension is given (e.g. \'.bak\')")
+            .build());
         options.addOption(
-            OptionBuilder.hasArg(false)
-            .withDescription("process files line by line using implicit 'line' variable")
-            .create('n'));
+            Option.builder("n").hasArg(false)
+            .desc("process files line by line using implicit 'line' variable")
+            .build());
         options.addOption(
-            OptionBuilder.hasArg(false)
-            .withDescription("process files line by line and print result (see also -n)")
-            .create('p'));
+            Option.builder("p").hasArg(false)
+            .desc("process files line by line and print result (see also -n)")
+            .build());
         options.addOption(
-            OptionBuilder.withArgName("port")
-            .hasOptionalArg()
-            .withDescription("listen on a port and process inbound lines")
-            .create('l'));
+            Option.builder("l").argName("port")
+            .optionalArg(true)
+            .desc("listen on a port and process inbound lines")
+            .build());
         options.addOption(
-            OptionBuilder.withArgName("splitPattern")
-            .hasOptionalArg()
-            .withDescription("split lines using splitPattern (default '\\s') using implicit 'split' variable")
-            .withLongOpt("autosplit")
-            .create('a'));
+            Option.builder("a").argName("splitPattern")
+            .optionalArg(true)
+            .desc("split lines using splitPattern (default '\\s') using implicit 'split' variable")
+            .longOpt("autosplit")
+            .build());
 
-        final Parser parser = new PosixParser();
+        final DefaultParser parser = new DefaultParser();
         final CommandLine line = parser.parse(options, new String[] { "-e", "println 'hello'" }, true);
 
         assertTrue(line.hasOption('e'));
@@ -280,30 +279,30 @@ public class ApplicationTest
         final Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
         final Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
 
-        final Option timeLimit = OptionBuilder.withLongOpt("limit").hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("Set time limit for execution, in minutes")
-                                        .create("l");
+        final Option timeLimit = Option.builder("l").longOpt("limit").hasArg()
+                                        .valueSeparator()
+                                        .desc("Set time limit for execution, in minutes")
+                                        .build();
 
-        final Option age = OptionBuilder.withLongOpt("age").hasArg()
-                                  .withValueSeparator()
-                                  .withDescription("Age (in days) of cache item before being recomputed")
-                                  .create("a");
+        final Option age = Option.builder("a").longOpt("age").hasArg()
+                                  .valueSeparator()
+                                  .desc("Age (in days) of cache item before being recomputed")
+                                  .build();
 
-        final Option server = OptionBuilder.withLongOpt("server").hasArg()
-                                     .withValueSeparator()
-                                     .withDescription("The NLT server address")
-                                     .create("s");
+        final Option server = Option.builder("s").longOpt("server").hasArg()
+                                     .valueSeparator()
+                                     .desc("The NLT server address")
+                                     .build();
 
-        final Option numResults = OptionBuilder.withLongOpt("results").hasArg()
-                                         .withValueSeparator()
-                                         .withDescription("Number of results per item")
-                                         .create("r");
+        final Option numResults = Option.builder("r").longOpt("results").hasArg()
+                                         .valueSeparator()
+                                         .desc("Number of results per item")
+                                         .build();
 
-        final Option configFile = OptionBuilder.withLongOpt("file").hasArg()
-                                         .withValueSeparator()
-                                         .withDescription("Use the specified configuration file")
-                                         .create();
+        final Option configFile = Option.builder().longOpt("file").hasArg()
+                                         .valueSeparator()
+                                         .desc("Use the specified configuration file")
+                                         .build();
 
         final Options options = new Options();
         options.addOption(help);
@@ -317,7 +316,7 @@ public class ApplicationTest
         options.addOption(configFile);
 
         // create the command line parser
-        final CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new DefaultParser();
 
         final String[] args = new String[] {
                 "-v",
