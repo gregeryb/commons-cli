@@ -543,14 +543,12 @@ public class Option implements Cloneable, Serializable
 
     /**
      * Return the values of this Option as a String array 
-     * or null if there are no values
      *
      * @return the values of this Option as a String array 
-     * or null if there are no values
      */
     public String[] getValues()
     {
-        return hasNoValues() ? null : values.toArray(new String[values.size()]);
+        return values.toArray(new String[values.size()]);
     }
 
     /**

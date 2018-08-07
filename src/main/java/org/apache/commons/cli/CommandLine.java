@@ -154,7 +154,10 @@ public class CommandLine implements Serializable
             return null;
         }
          String[] values = getOptionValues(option);
-        return (values == null) ? null : values[0];
+         if (values.length > 0){
+          return values[0];
+         }
+        return null;
     }
 
     /**
@@ -185,14 +188,12 @@ public class CommandLine implements Serializable
      * Retrieves the array of values, if any, of an option.
      *
      * @param option string name of the option.
-     * @return Values of the argument if option is set, and has an argument,
-     * otherwise null.
+     * @return Values of the argument.
      * @since 1.5
      */
     public String[] getOptionValues( Option option)
     {
          List<String> values = new ArrayList<String>();
-
         for ( Option processedOption : options)
         {
             if (processedOption.equals(option))
@@ -201,7 +202,7 @@ public class CommandLine implements Serializable
             }
         }
 
-        return values.isEmpty() ? null : values.toArray(new String[values.size()]);
+        return values.toArray(new String[values.size()]);
     }
 
     /**
