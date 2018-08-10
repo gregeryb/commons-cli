@@ -211,7 +211,7 @@ public class DefaultParser implements CommandLineParser
 
                 if (opt.hasArg())
                 {
-                    if (opt.getValues() == null || opt.getValues().length == 0)
+                    if (opt.getValues().isEmpty())
                     {
                         opt.addValueForProcessing(value);
                     }

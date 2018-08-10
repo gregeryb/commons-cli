@@ -153,9 +153,9 @@ public class CommandLine implements Serializable
         {
             return null;
         }
-         String[] values = getOptionValues(option);
-         if (values.length > 0){
-          return values[0];
+         List<String>values = getOptionValues(option);
+         if (!values.isEmpty()){
+          return values.get(0);
          }
         return null;
     }
@@ -185,15 +185,15 @@ public class CommandLine implements Serializable
     }
 
     /**
-     * Retrieves the array of values, if any, of an option.
+     * Retrieves the list of values, if any, of an option.
      *
      * @param option string name of the option.
      * @return Values of the argument.
      * @since 1.5
      */
-    public String[] getOptionValues( Option option)
+    public List<String> getOptionValues( Option option)
     {
-         List<String> values = new ArrayList<String>();
+         List<String> values = new ArrayList<>();
         for ( Option processedOption : options)
         {
             if (processedOption.equals(option))
@@ -202,17 +202,17 @@ public class CommandLine implements Serializable
             }
         }
 
-        return values.toArray(new String[values.size()]);
+        return values;
     }
 
     /**
-     * Retrieves the array of values, if any, of an option.
+     * Retrieves the list of values, if any, of an option.
      *
      * @param opt string name of the option.
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String[] getOptionValues( String opt)
+    public List<String>getOptionValues( String opt)
     {
         return getOptionValues(resolveOption(opt));
     }
@@ -243,13 +243,13 @@ public class CommandLine implements Serializable
     }
 
     /**
-     * Retrieves the array of values, if any, of an option.
+     * Retrieves the list of values, if any, of an option.
      *
      * @param opt character name of the option.
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String[] getOptionValues( char opt)
+    public List<String>getOptionValues( char opt)
     {
         return getOptionValues(String.valueOf(opt));
     }

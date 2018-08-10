@@ -212,8 +212,8 @@ public class ValueTest
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("j") );
         assertEquals( "ink", cmd.getOptionValue("j") );
-        assertEquals( "ink", cmd.getOptionValues("j")[0] );
-        assertEquals( "idea", cmd.getOptionValues("j")[1] );
+        assertEquals("ink", cmd.getOptionValues("j").get(0));
+        assertEquals("idea", cmd.getOptionValues("j").get(1));
         assertEquals( cmd.getArgs().length, 0 );
     }
     
@@ -226,8 +226,8 @@ public class ValueTest
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("j")) );
         assertEquals( "ink", cmd.getOptionValue(opts.getOption("j")) );
-        assertEquals( "ink", cmd.getOptionValues(opts.getOption("j"))[0] );
-        assertEquals( "idea", cmd.getOptionValues(opts.getOption("j"))[1] );
+        assertEquals("ink", cmd.getOptionValues(opts.getOption("j")).get(0));
+        assertEquals("idea", cmd.getOptionValues(opts.getOption("j")).get(1));
         assertEquals( cmd.getArgs().length, 0 );
     }
 
@@ -240,8 +240,8 @@ public class ValueTest
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("gravy") );
         assertEquals( "gold", cmd.getOptionValue("gravy") );
-        assertEquals( "gold", cmd.getOptionValues("gravy")[0] );
-        assertEquals( "garden", cmd.getOptionValues("gravy")[1] );
+        assertEquals("gold", cmd.getOptionValues("gravy").get(0));
+        assertEquals("garden", cmd.getOptionValues("gravy").get(1));
         assertEquals( cmd.getArgs().length, 0 );
     }
     
@@ -254,8 +254,8 @@ public class ValueTest
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("gravy")) );
         assertEquals( "gold", cmd.getOptionValue(opts.getOption("gravy")) );
-        assertEquals( "gold", cmd.getOptionValues(opts.getOption("gravy"))[0] );
-        assertEquals( "garden", cmd.getOptionValues(opts.getOption("gravy"))[1] );
+        assertEquals("gold", cmd.getOptionValues(opts.getOption("gravy")).get(0));
+        assertEquals("garden", cmd.getOptionValues(opts.getOption("gravy")).get(1));
         assertEquals( cmd.getArgs().length, 0 );
     }
 
@@ -268,8 +268,8 @@ public class ValueTest
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("i") );
         assertEquals( "ink", cmd.getOptionValue("i") );
-        assertEquals( "ink", cmd.getOptionValues("i")[0] );
-        assertEquals( "idea", cmd.getOptionValues("i")[1] );
+        assertEquals("ink", cmd.getOptionValues("i").get(0));
+        assertEquals("idea", cmd.getOptionValues("i").get(1));
         assertEquals( cmd.getArgs().length, 2 );
         assertEquals( "isotope", cmd.getArgs()[0] );
         assertEquals( "ice", cmd.getArgs()[1] );
@@ -284,8 +284,8 @@ public class ValueTest
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("i") );
         assertEquals( "ink", cmd.getOptionValue(opts.getOption("i")) );
-        assertEquals( "ink", cmd.getOptionValues(opts.getOption("i"))[0] );
-        assertEquals( "idea", cmd.getOptionValues(opts.getOption("i"))[1] );
+        assertEquals("ink", cmd.getOptionValues(opts.getOption("i")).get(0));
+        assertEquals("idea", cmd.getOptionValues(opts.getOption("i")).get(1));
         assertEquals( cmd.getArgs().length, 2 );
         assertEquals( "isotope", cmd.getArgs()[0] );
         assertEquals( "ice", cmd.getArgs()[1] );
@@ -303,8 +303,8 @@ public class ValueTest
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("hide") );
         assertEquals( "house", cmd.getOptionValue("hide") );
-        assertEquals( "house", cmd.getOptionValues("hide")[0] );
-        assertEquals( "hair", cmd.getOptionValues("hide")[1] );
+        assertEquals("house", cmd.getOptionValues("hide").get(0));
+        assertEquals("hair", cmd.getOptionValues("hide").get(1));
         assertEquals( cmd.getArgs().length, 1 );
         assertEquals( "head", cmd.getArgs()[0] );
     }
@@ -321,8 +321,8 @@ public class ValueTest
         final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("hide")) );
         assertEquals( "house", cmd.getOptionValue(opts.getOption("hide")) );
-        assertEquals( "house", cmd.getOptionValues(opts.getOption("hide"))[0] );
-        assertEquals( "hair", cmd.getOptionValues(opts.getOption("hide"))[1] );
+        assertEquals("house", cmd.getOptionValues(opts.getOption("hide")).get(0));
+        assertEquals("hair", cmd.getOptionValues(opts.getOption("hide")).get(1));
         assertEquals( cmd.getArgs().length, 1 );
         assertEquals( "head", cmd.getArgs()[0] );
     }

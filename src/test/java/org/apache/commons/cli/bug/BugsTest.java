@@ -25,6 +25,7 @@ import static org.junit.Assert.fail;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
@@ -66,16 +67,16 @@ public class BugsTest
 
         final CommandLine cmd = parser.parse(options, args);
 
-        String[] values = cmd.getOptionValues('D');
+        List<String>values = cmd.getOptionValues('D');
 
-        assertEquals(values[0], "JAVA_HOME");
-        assertEquals(values[1], "/opt/java");
+        assertEquals(values.get(0), "JAVA_HOME");
+        assertEquals(values.get(1), "/opt/java");
 
         values = cmd.getOptionValues('p');
 
-        assertEquals(values[0], "file1");
-        assertEquals(values[1], "file2");
-        assertEquals(values[2], "file3");
+        assertEquals(values.get(0), "file1");
+        assertEquals(values.get(1), "file2");
+        assertEquals(values.get(2), "file3");
 
         final Iterator<Option> iter = cmd.iterator();
         while (iter.hasNext())

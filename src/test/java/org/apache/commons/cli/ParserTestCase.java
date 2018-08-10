@@ -17,13 +17,13 @@
 
 package org.apache.commons.cli;
 
+import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -452,7 +452,7 @@ public abstract class ParserTestCase
 
         final CommandLine cl = parser.parse(options, args);
 
-        final List<String> values = Arrays.asList(cl.getOptionValues("J"));
+        final List<String> values = cl.getOptionValues("J");
         assertNotNull("null values", values);
         assertEquals("number of values", 4, values.size());
         assertEquals("value 1", "source", values.get(0));
@@ -921,9 +921,9 @@ public abstract class ParserTestCase
         final CommandLine cl = parser.parse(options, args);
 
         assertTrue("Confirm -e is set", cl.hasOption("e"));
-        assertEquals("number of arg for -e", 2, cl.getOptionValues("e").length);
+        assertEquals("number of arg for -e", 2, cl.getOptionValues("e").size());
         assertTrue("Confirm -f is set", cl.hasOption("f"));
-        assertEquals("number of arg for -f", 1, cl.getOptionValues("f").length);
+        assertEquals("number of arg for -f", 1, cl.getOptionValues("f").size());
     }
 
     private CommandLine parse(final CommandLineParser parser, final Options opts, final String[] args, final Properties properties) throws ParseException {
@@ -1020,11 +1020,11 @@ public abstract class ParserTestCase
         final Properties properties = new Properties();
         properties.setProperty( "k", "one,two" );
 
-        final String[] values = new String[] { "one", "two" };
+        final List<String>values = Arrays.asList( "one", "two" );
 
         final CommandLine cmd = parse(parser, opts, null, properties);
         assertTrue( cmd.hasOption("k") );
-        assertTrue( Arrays.equals( values, cmd.getOptionValues('k') ) );
+        assertTrue( values.equals(cmd.getOptionValues('k') ) );
     }
 
     @Test

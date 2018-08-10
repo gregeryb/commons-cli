@@ -69,7 +69,7 @@ public class OptionTest
         b.addValue("b2");
         assertEquals(1, a.getArgs());
         assertEquals(0, a.getValuesList().size());
-        assertEquals(2, b.getValues().length);
+        assertEquals(2, b.getValues().size());
     }
     
     @Test

@@ -73,7 +73,7 @@ public class Option implements Cloneable, Serializable
     private Class<?> type = String.class;
 
     /** the list of argument values **/
-    private List<String> values = new ArrayList<String>();
+    private List<String> values = new ArrayList<>();
 
     /** the character that is the value separator */
     private char valuesep;
@@ -542,13 +542,13 @@ public class Option implements Cloneable, Serializable
     }
 
     /**
-     * Return the values of this Option as a String array 
+     * Return the values of this Option as a String list 
      *
-     * @return the values of this Option as a String array 
+     * @return the values of this Option as a String list
      */
-    public String[] getValues()
+    public List<String> getValues()
     {
-        return values.toArray(new String[values.size()]);
+        return new ArrayList<>(values);
     }
 
     /**

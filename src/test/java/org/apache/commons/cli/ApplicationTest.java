@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -96,11 +97,11 @@ public class ApplicationTest
         final CommandLine line = parser.parse( options, args );
 
         // check multiple values
-        final String[] opts = line.getOptionValues( "D" );
-        assertEquals( "property", opts[0] );
-        assertEquals( "value", opts[1] );
-        assertEquals( "property1", opts[2] );
-        assertEquals( "value1", opts[3] );
+        final List<String>opts = line.getOptionValues( "D" );
+        assertEquals("property", opts.get(0));
+        assertEquals("value", opts.get(1));
+        assertEquals("property1", opts.get(2));
+        assertEquals("value1", opts.get(3));
 
         // check single value
         assertEquals( line.getOptionValue( "buildfile"), "mybuild.xml" );
